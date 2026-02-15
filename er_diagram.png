@@ -1,0 +1,14 @@
+
+-- Stored Procedure: Get top 5 products
+
+CREATE PROCEDURE GetTopProducts
+AS
+BEGIN
+    SELECT TOP 5
+        p.name,
+        SUM(oi.quantity) AS total_sold
+    FROM order_items oi
+    JOIN products p ON oi.product_id = p.id
+    GROUP BY p.name
+    ORDER BY total_sold DESC;
+END;
